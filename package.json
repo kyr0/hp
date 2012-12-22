@@ -1,0 +1,19 @@
+{
+  "name": "aron_homberg_de",
+  "scripts": {
+    "start": "hp.js"
+  },
+  "domains": [
+    "aron-homberg.de",
+    "www.aron-homberg.de"
+  ],
+  "version": "1.0.0-10",
+  "engines": {
+    "node": "0.8.x"
+  },
+  "dependencies": {
+    "node-static": "0.6.x",
+    "socket.io": "0.9.x",
+    "tinyhook": "0.1.1"
+  }
+}

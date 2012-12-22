@@ -1,0 +1,11 @@
+TODO
+====
+
+- Fix hacky WebServer.js implementation for rewriting
+
+- Implement publish()-functionality in combination with ejs templating system
+  to one-time generate .html files out of data and tpl files instead of
+  manually repeating yourself when editing static HTML files
+
+- Implement mobile mode using jQuery mobile (/$locale/mobile directory) and
+  handle this in WebServer.js redirection algorithm
