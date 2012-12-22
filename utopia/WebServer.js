@@ -133,7 +133,9 @@ var WebServer = {
     serveStatic: function(request, response) {
 
         // Configure static file server
-        var staticServer = new(GLOBAL.nodeStatic.Server)(__dirname + '/../web/');
+        var staticServer = new(GLOBAL.nodeStatic.Server)(__dirname + '/../web/', {
+            cache: 7200
+        });
 
         // At the end of a request, deliver the file
         request.addListener('end', function () {
