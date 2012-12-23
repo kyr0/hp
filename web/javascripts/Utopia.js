@@ -152,12 +152,15 @@ var Utopia = {
      */
     onMobileBrowser: function() {
 
+        return;
+
         // Never ask if already in mobile mode
         if (document.location.pathname.indexOf('mobile') > -1) {
             Utopia.mobileMode = true;
             return;
         }
 
+        // TODO: store setting in LocalStorage: Don't ask anytime!
         if (confirm(Utopia._('Go to mobile version?'))) {
 
             // Find next slash (/) position after $locale name
