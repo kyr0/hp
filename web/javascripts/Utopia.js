@@ -24,7 +24,6 @@ var Utopia = {
     ],
 
     requiresCSS: [
-        "/stylesheets/default.css"
     ],
 
     partsWithoutJS: [],
