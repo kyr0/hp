@@ -99,15 +99,15 @@ var Utopia = {
             // TODO: Change URLs!
             alert('jQuery mobile TODO change URLs');
 
-            Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
-            Utopia.requires.push("/javascripts/thirdparty/jquery.js");
-            Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
+            //Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
+            //Utopia.requires.push("/javascripts/thirdparty/jquery.js");
+            //Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
 
         } else {
 
-            Utopia.requires.push("/javascripts/thirdparty/jquery.js");
-            Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
-            Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
+            //Utopia.requires.push("/javascripts/thirdparty/jquery.js");
+            //Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
+            //Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
         }
 
         // Include requires
