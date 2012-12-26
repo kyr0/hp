@@ -24,6 +24,7 @@ var Utopia = {
     ],
 
     requiresCSS: [
+        ""
     ],
 
     partsWithoutJS: [],
@@ -41,72 +42,53 @@ var Utopia = {
      * Requires libs synchronously in sequence
      * @return void
      */
-    requireJS: function() {
+    requireJS: function () {
 
-        var idx = 0, maxIdx = Utopia.requires.length-1,
-            callRequireInSequence = function(idx) {
+        var idx = 0, maxIdx = Utopia.requires.length - 1,
+            callRequireInSequence = function (idx) {
 
-            require([Utopia.requires[idx]], function() {
-                if (idx < maxIdx) {
-                    idx++;
-                    callRequireInSequence(idx);
-                }
-            });
-        };
+                require([Utopia.requires[idx]], function () {
+                    if (idx < maxIdx) {
+                        idx++;
+                        callRequireInSequence(idx);
+                    }
+                });
+            };
         callRequireInSequence(idx);
     },
-
 
     /**
      * Requires libs synchronously in sequence
      * @return void
      */
-    requireCSS: function() {
+    requireCSS: function () {
 
-        var idx = 0, maxIdx = Utopia.requiresCSS.length-1,
-            callRequireInSequence = function(idx) {
+        var idx = 0, maxIdx = Utopia.requiresCSS.length - 1,
+            callRequireInSequence = function (idx) {
 
-            Utopia.loadStyleSheet(Utopia.requiresCSS[idx]);
+                Utopia.loadStyleSheet(Utopia.requiresCSS[idx]);
 
-            setTimeout(function() {
+                setTimeout(function () {
 
-                if (idx < maxIdx) {
-                    idx++;
-                    callRequireInSequence(idx);
-                }
+                    if (idx < maxIdx) {
+                        idx++;
+                        callRequireInSequence(idx);
+                    }
 
-            }, 50);
-        };
+                }, 50);
+            };
         callRequireInSequence(idx);
     },
-
 
     /**
      * Initializes the application frontend
      * @return void
      */
-    init: function() {
+    init: function () {
 
         // Check for mobile mode by known URL
         if (document.location.pathname.indexOf('mobile') > -1) {
             Utopia.mobileMode = true;
-        }
-
-        // Switch jQuery mobile / jQuery desktop by mode
-        if (Utopia.mobileMode) {
-
-            // TODO: Change URLs!
-            alert('jQuery mobile TODO change URLs');
-
-            //Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
-            //Utopia.requires.push("/javascripts/thirdparty/jquery.js");
-            //Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
-
-        } else {
-
-            //Utopia.requires.push("/javascripts/thirdparty/jquery.js");
-            //Utopia.requires.push("/javascripts/thirdparty/jquery-ui-1.9.2.custom.js");
-            //Utopia.requiresCSS.push("/stylesheets/thirdparty/jquery-ui-1.9.2.custom.css");
         }
 
         // Include requires
@@ -122,14 +104,14 @@ var Utopia = {
         Utopia.requireJS();
 
         // Implement DOM ready management
-        require(["/javascripts/thirdparty/domReady.js"], function(domReady) {
+        require(["/javascripts/thirdparty/domReady.js"], function (domReady) {
 
             // Call callback when DOM is ready
-            domReady(function() {
+            domReady(function () {
 
                 if (!Utopia.localeLoaded) {
 
-                    var waitForLocale = setInterval(function() {
+                    var waitForLocale = setInterval(function () {
 
                         if (Utopia.localeLoaded) {
                             Utopia.onDomReady();
@@ -144,15 +126,15 @@ var Utopia = {
         })
     },
 
-
     /**
      * Relocate to mobile device to the app
      * promotion page.
      * @return void
      */
-    onMobileBrowser: function() {
+    onMobileBrowser: function () {
 
-        return;
+        // Show mobile switch link
+        document.getElementById('mobileLink').style.display = 'block';
 
         // Never ask if already in mobile mode
         if (document.location.pathname.indexOf('mobile') > -1) {
@@ -160,35 +142,44 @@ var Utopia = {
             return;
         }
 
-        // TODO: store setting in LocalStorage: Don't ask anytime!
-        if (confirm(Utopia._('Go to mobile version?'))) {
+        // Check for decision already made
+        var mobileAlreadyChoosen = Utopia.getCookie('mobileChoosen');
 
-            // Find next slash (/) position after $locale name
-            var nextSlashPos = document.location.pathname.indexOf('/', 1);
-            var mobileURL =  document.location.pathname.substring(0, nextSlashPos)
-                          + '/mobile' +  document.location.pathname.substring(nextSlashPos);
+        if (!mobileAlreadyChoosen) {
 
-            // Redirect to mobile
-            document.location.href = mobileURL;
+            if (confirm(Utopia._('Go to mobile version?'))) {
+
+                // Find next slash (/) position after $locale name
+                var nextSlashPos = document.location.pathname.indexOf('/', 1);
+                var mobileURL = document.location.pathname.substring(0, nextSlashPos)
+                    + '/mobile' + document.location.pathname.substring(nextSlashPos);
+
+                // Redirect to mobile
+                document.location.href = mobileURL;
+
+                Utopia.setCookie('mobileChoosen', true);
+
+            } else {
+
+                Utopia.setCookie('mobileChoosen', true);
+            }
         }
     },
-
 
     /**
      * Load locale determined on browser settings
      * @return void
      */
-    onDomReady: function() {
+    onDomReady: function () {
 
     },
-
 
     /**
      * Loads a stylesheet
      * @param {String} url CSS url
      * @return void
      */
-    loadStyleSheet: function(url) {
+    loadStyleSheet: function (url) {
 
         var link = document.createElement("link");
         link.type = "text/css";
@@ -197,7 +188,6 @@ var Utopia = {
         document.getElementsByTagName("head")[0].appendChild(link);
     },
 
-
     /**
      * Conditional logger method.
      * Prevents undefined errors if no developer tools are available.
@@ -205,7 +195,7 @@ var Utopia = {
      * @param {* ...} args Any argument(s)
      * @return void
      */
-    log: function(/* {*} args... */) {
+    log: function (/* {*} args... */) {
 
         if (console.log) {
             console.log(arguments)
@@ -217,7 +207,7 @@ var Utopia = {
      * @param {String} key Translation key
      * @return {String}
      */
-    _: function(key) {
+    _: function (key) {
         return Utopia.i18n[key] || key;
     },
 
@@ -226,15 +216,15 @@ var Utopia = {
      * @param {String/Boolean} msg Message to show or boolean false to hide
      * @return void
      */
-    showLoading: function(msg) {
+    showLoading: function (msg) {
 
         if (!msg) {
 
             // Hide
-            $('.SiteLoadingMask').fadeTo(200, 0,function() {
+            $('.SiteLoadingMask').fadeTo(200, 0, function () {
                 $('.SiteLoadingMask').attr('style', 'display: none');
 
-                $('.SiteLoadingMaskIndicator').fadeTo(200, 0,function() {
+                $('.SiteLoadingMaskIndicator').fadeTo(200, 0, function () {
                     $('.SiteLoadingMaskIndicator').attr('style', 'display: none');
                 });
             });
@@ -255,6 +245,25 @@ var Utopia = {
         }
     },
 
+    setCookie: function (c_name, value, exdays) {
+        var exdate = new Date();
+        exdate.setDate(exdate.getDate() + exdays);
+        var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+        document.cookie = c_name + "=" + c_value;
+    },
+
+    getCookie: function (c_name) {
+        var i, x, y, ARRcookies = document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++) {
+            x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+            y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+            x = x.replace(/^\s+|\s+$/g, "");
+            if (x == c_name) {
+                return unescape(y);
+            }
+        }
+    },
+
     // Language chooser implementation
     LanguageChooser: {
 
@@ -263,7 +272,7 @@ var Utopia = {
          * @param {String} locale Locale name
          * @return void
          */
-        "switch": function(locale) {
+        "switch": function (locale) {
 
             // Find next slash (/) position after $locale name
             var nextSlashPos = document.location.pathname.indexOf('/', 1);

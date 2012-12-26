@@ -265,7 +265,7 @@ p {
     color: #444444;
     padding: 0 0 0 10px;
     text-decoration: none;
-    padding: 0 0 0 10px;
+    background-position: 2px 2px;
 }
 .bodyPan a:hover, .bodyPan a:hover {
     color: #000000;
@@ -343,4 +343,11 @@ table td {
     font-size: 16px;
     font-family: arial;
     padding-bottom: 15px;
+}
+
+#mobileLink {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #000;
+    display: none;
 }
