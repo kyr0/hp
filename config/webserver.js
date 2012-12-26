@@ -5,5 +5,5 @@
  * @type {Object}
  */
 module.exports.WebServer = {
-    port: 80
+    port: 8080
 };
